@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TheorySprout — Music theory practice that never runs out</title>
+<meta name="description" content="Exam-style music theory drills for Grades 1–5. Every question is generated, so practice never runs out and never repeats. Free on iPhone and iPad.">
+<link rel="canonical" href="https://nickmen.github.io/theorysprout-site/">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="TheorySprout — Music theory practice that never runs out">
+<meta property="og:description" content="Exam-style music theory drills for Grades 1–5. Every question is generated, so practice never runs out and never repeats.">
+<meta property="og:url" content="https://nickmen.github.io/theorysprout-site/">
+<meta property="og:image" content="https://is1-ssl.mzstatic.com/image/thumb/Purple221/v4/22/16/8d/22168d60-80b2-db03-2c54-17634d72757c/AppIcon-0-0-1x_U007epad-0-1-85-220.png/512x512bb.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<style>
+  :root{
+    color-scheme: light dark;
+    --paper:#f7f2e5; --surface:#fffdf6; --surface2:#f0e9d8;
+    --ink:#2b211d; --ink-soft:rgba(43,33,29,.62);
+    --brass:#8c6a1f; --on-brass:#fffaec;
+    --hairline:rgba(60,40,20,.16);
+    --sage:#4c7a5a; --coral:#b4543e;
+    --display: ui-serif, Georgia, "Times New Roman", serif;
+    --body: ui-rounded, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    --measure: 680px;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --paper:#1c1412; --surface:#2b1e19; --surface2:#382821;
+      --ink:#f2e9dc; --ink-soft:rgba(242,233,220,.62);
+      --brass:#d4a73f; --on-brass:#1c1412;
+      --hairline:rgba(242,233,220,.14);
+      --sage:#79b98c; --coral:#e58a72;
+    }
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; background:var(--paper); color:var(--ink);
+    font-family:var(--body); line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:var(--measure); margin:0 auto; padding:0 22px}
+  section{padding:52px 0; border-bottom:1px solid var(--hairline)}
+  section:last-of-type{border-bottom:0}
+  h1,h2,h3{font-family:var(--display); line-height:1.2; margin:0 0 .5rem}
+  h1{font-size:2.6rem; letter-spacing:-.01em}
+  h2{font-size:1.5rem; margin-top:0}
+  h3{font-size:1.05rem; font-family:var(--body); font-weight:650}
+  p{margin:0 0 1rem}
+  a{color:var(--brass)}
+  .muted{color:var(--ink-soft)}
+
+  /* Hero */
+  header{padding:64px 0 8px; text-align:center}
+  .lockup{display:flex; align-items:center; justify-content:center; gap:14px; margin-bottom:26px}
+  .lockup .name{font-family:var(--display); font-weight:700; font-size:1.5rem}
+  .tagline{font-size:1.15rem; color:var(--ink-soft); max-width:34ch; margin:0 auto 28px}
+  .cta{
+    display:inline-block; background:var(--brass); color:var(--on-brass);
+    text-decoration:none; font-weight:650; padding:14px 26px; border-radius:14px;
+    font-size:1.02rem;
+  }
+  .cta:hover{opacity:.9}
+  .sub{font-size:.9rem; color:var(--ink-soft); margin-top:14px}
+
+  /* Cards */
+  .card{background:var(--surface); border:1px solid var(--hairline); border-radius:16px; padding:20px}
+  .grid{display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(250px,1fr))}
+  .grid h3{margin:0 0 .3rem}
+  .grid p{margin:0; font-size:.95rem; color:var(--ink-soft)}
+
+  /* Grade table */
+  table{width:100%; border-collapse:collapse; font-size:.93rem}
+  th,td{text-align:left; padding:11px 10px; border-bottom:1px solid var(--hairline); vertical-align:top}
+  th{font-weight:650; color:var(--brass); white-space:nowrap}
+  td:first-child{white-space:nowrap; font-weight:600}
+
+  /* Pricing */
+  .prices{display:grid; gap:14px; grid-template-columns:1fr 1fr}
+  @media(max-width:520px){.prices{grid-template-columns:1fr}}
+  .price{text-align:center}
+  .price .amt{font-family:var(--display); font-size:1.9rem; font-weight:700; color:var(--brass)}
+  .price .per{font-size:.88rem; color:var(--ink-soft)}
+  .badge{display:inline-block; background:var(--surface2); border-radius:999px; padding:3px 11px; font-size:.78rem; color:var(--ink-soft); margin-top:8px}
+
+  /* Screenshots */
+  .shots{display:flex; gap:14px; overflow-x:auto; padding-bottom:8px; scroll-snap-type:x mandatory}
+  .shots img{width:220px; flex:0 0 auto; border-radius:18px; border:1px solid var(--hairline); scroll-snap-align:start}
+  .shot-placeholder{
+    width:220px; height:460px; flex:0 0 auto; border-radius:18px;
+    border:1px dashed var(--hairline); background:var(--surface2);
+    display:flex; align-items:center; justify-content:center; text-align:center;
+    color:var(--ink-soft); font-size:.82rem; padding:16px; scroll-snap-align:start;
+  }
+
+  ul.ticks{list-style:none; padding:0; margin:0}
+  ul.ticks li{padding-left:26px; position:relative; margin-bottom:.5rem}
+  ul.ticks li::before{content:"♪"; position:absolute; left:4px; color:var(--brass)}
+
+  footer{padding:40px 0 64px; font-size:.9rem; color:var(--ink-soft); text-align:center}
+  footer a{margin:0 9px; white-space:nowrap; display:inline-block}
+  .disclaim{margin-top:18px; font-size:.82rem; max-width:52ch; margin-left:auto; margin-right:auto}
+</style>
+</head>
+<body>
+
+<header class="wrap">
+  <div class="lockup">
+    <!-- Logo mark: a quaver sprouting leaves, wrapped in resonance rings -->
+    <svg width="72" height="72" viewBox="0 0 100 100" aria-hidden="true">
+      <circle cx="50" cy="50" r="37.7" fill="none" stroke="var(--brass)" stroke-opacity=".42" stroke-width="2.15"/>
+      <circle cx="50" cy="50" r="48.5" fill="none" stroke="var(--brass)" stroke-opacity=".20" stroke-width="1.7"/>
+      <ellipse cx="42.3" cy="65.4" rx="11.5" ry="8.5" fill="var(--brass)" transform="rotate(-18 42.3 65.4)"/>
+      <rect x="50.0" y="26.4" width="3.5" height="38.5" rx="1.5" fill="var(--brass)"/>
+      <ellipse cx="45.8" cy="26.9" rx="10" ry="4.2" fill="var(--sage)" transform="rotate(-38 45.8 26.9)"/>
+      <ellipse cx="60.8" cy="24.6" rx="10" ry="4.2" fill="var(--sage)" transform="rotate(38 60.8 24.6)"/>
+    </svg>
+    <div>
+      <div class="name">TheorySprout</div>
+      <div class="muted" style="font-size:.92rem">Music theory, grade by grade</div>
+    </div>
+  </div>
+
+  <h1>Music theory practice<br>that never runs out</h1>
+  <p class="tagline">Exam-style drills for Grades 1–5, with every question generated fresh.</p>
+
+  <a class="cta" href="https://apps.apple.com/us/app/theorysprout/id6792008330">Download on the App Store</a>
+  <p class="sub">Free · iPhone &amp; iPad · iOS 16+ · 7-day free trial on Pro</p>
+</header>
+
+<section class="wrap">
+  <h2>Past papers run out. This doesn't.</h2>
+  <p>
+    Every student working toward a graded theory exam hits the same wall. There are only so many
+    past papers, and after a couple of passes you're remembering answers instead of working them out.
+  </p>
+  <p>
+    TheorySprout generates questions instead of storing them. Underneath is a music theory engine
+    written from scratch — scale spelling for every major and minor key out to six sharps and six
+    flats, intervals with quality, triads and their inversions, cadences, technical names,
+    transposing instruments. Questions are built from that model at run time, so you can drill key
+    signatures for an hour and never meet the same one twice.
+  </p>
+</section>
+
+<section class="wrap">
+  <h2>Screenshots</h2>
+  <div class="shots">
+    <!-- Replace each placeholder with: <img src="screenshots/01.png" alt="..."> -->
+    <div class="shot-placeholder">Add screenshots/01.png<br>(grade picker)</div>
+    <div class="shot-placeholder">Add screenshots/02.png<br>(a notated question)</div>
+    <div class="shot-placeholder">Add screenshots/03.png<br>(topic selection)</div>
+    <div class="shot-placeholder">Add screenshots/04.png<br>(practice record)</div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>What's covered</h2>
+  <table>
+    <tr><th>Grade</th><th>Scope</th></tr>
+    <tr><td>Grade 1</td><td>Note values · 2/4, 3/4, 4/4 · C, G, D, F major · intervals by number · tonic triads · treble &amp; bass clef</td></tr>
+    <tr><td>Grade 2</td><td>Triplets · minor keys · A, B♭, E♭ major · two ledger lines · more terms</td></tr>
+    <tr><td>Grade 3</td><td>Compound time · harmonic &amp; melodic minor · interval types · keys to 4♯/4♭</td></tr>
+    <tr><td>Grade 4</td><td>Alto clef · enharmonics · double accidentals · technical names · I, IV, V · ornaments</td></tr>
+    <tr><td>Grade 5</td><td>Tenor clef · irregular time · inversions · cadences · transposing instruments</td></tr>
+  </table>
+</section>
+
+<section class="wrap">
+  <h2>What you get</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Questions that never repeat</h3>
+      <p>Generated from a real theory engine, not a fixed bank. Drill one topic as long as you need.</p>
+    </div>
+    <div class="card">
+      <h3>Notation, properly engraved</h3>
+      <p>Every stave is drawn live in treble, bass, alto and tenor clef using a professional music font — not images.</p>
+    </div>
+    <div class="card">
+      <h3>Choose your topics</h3>
+      <p>Focus on exactly what you find tricky, or take a mixed session across the whole grade.</p>
+    </div>
+    <div class="card">
+      <h3>Explanations after every answer</h3>
+      <p>See why an answer is right, so a practice session teaches rather than just tests.</p>
+    </div>
+    <div class="card">
+      <h3>Daily and Lightning modes</h3>
+      <p>A short set when time is tight, or race the clock when it isn't.</p>
+    </div>
+    <div class="card">
+      <h3>Your practice record</h3>
+      <p>Every completed session kept with its score, plus your best and average.</p>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <h2>Pricing</h2>
+  <div class="prices">
+    <div class="card price">
+      <div class="amt">$4.99</div>
+      <div class="per">per month</div>
+      <div class="badge">7-day free trial</div>
+    </div>
+    <div class="card price">
+      <div class="amt">$34.99</div>
+      <div class="per">per year</div>
+      <div class="badge">7-day free trial</div>
+    </div>
+  </div>
+  <p class="muted" style="margin-top:16px; font-size:.92rem">
+    The app is free to download. TheorySprout Pro unlocks unlimited practice across every grade and
+    topic. Subscriptions renew automatically and can be cancelled any time in your Apple ID settings.
+  </p>
+</section>
+
+<section class="wrap" id="press">
+  <h2>Press kit</h2>
+  <p>
+    TheorySprout is made by <strong>Yeong Jie Khoo</strong>, an independent developer. It was built
+    for his ten-year-old son, who was working toward a Grade 5 theory exam and kept running out of
+    past papers.
+  </p>
+  <ul class="ticks">
+    <li>Released 20 July 2026 · version 1.0 · iPhone and iPad · iOS 16 and later</li>
+    <li>Education (primary) and Music · English · available worldwide</li>
+    <li>Free to download, with an optional subscription</li>
+    <li>Built solo in SwiftUI. Roughly 4,800 lines, no third-party dependencies beyond the Bravura music font (SIL OFL)</li>
+    <li>Notation engraved live on a SwiftUI Canvas to SMuFL metrics — four clefs, beam groups, ledger lines, double accidentals, ornaments and tuplets</li>
+  </ul>
+  <p style="margin-top:18px">
+    <a href="press/theorysprout-press-kit.zip">Download press kit</a> — icon, screenshots, logo and
+    boilerplate. For review codes or anything else, email
+    <a href="mailto:parcelwish@gmail.com">parcelwish@gmail.com</a>.
+  </p>
+</section>
+
+<footer class="wrap">
+  <a href="https://apps.apple.com/us/app/theorysprout/id6792008330">App Store</a>
+  <a href="https://nickmen.github.io/earsprout-support/theorysprout-support.html">Support</a>
+  <a href="https://nickmen.github.io/earsprout-support/theorysprout-privacy-policy.html">Privacy Policy</a>
+  <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">Terms of Use (EULA)</a>
+  <p style="margin-top:20px">&copy; 2026 Yeong Jie Khoo</p>
+  <p class="disclaim">
+    TheorySprout is an independent study aid modelled on the graded theory syllabus. It is not
+    affiliated with or endorsed by ABRSM.
+  </p>
+</footer>
+
+</body>
+</html>
